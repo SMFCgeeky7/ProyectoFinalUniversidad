@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ProyectoFinalUniversidad.CapaNegocio.Servicios;
 
 namespace ProyectoFinalUniversidad.CapaPresentacion.Views
 {
@@ -18,9 +19,32 @@ namespace ProyectoFinalUniversidad.CapaPresentacion.Views
     /// </summary>
     public partial class LoginView : Window
     {
+        private AuthService _authService;
         public LoginView()
         {
             InitializeComponent();
+            _authService = new AuthService(new UnitOfWork(new UniversidadDbContext()));
+        }
+
+        private void BtnIngresar_Click(object sender, RoutedEventArgs e)
+        {
+            var ci = txtCi.Text;
+            var password = txtPassword.Password;
+
+            if (string.IsNullOrEmpty(ci) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Por favor complete todos los campos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Aquí irá la lógica de autenticación
+        }
+
+        private void TxtRegistrarse_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var registerView = new RegisterView();
+            registerView.Show();
+            this.Close();
         }
     }
 }
