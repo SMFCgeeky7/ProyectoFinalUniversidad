@@ -1,6 +1,7 @@
-﻿using ProyectoFinalUniversidad.CapaDatos;
+﻿using ProyectoFinalUniversidad.Comun;
 using ProyectoFinalUniversidad.CapaDatos.Entidades;
-using ProyectoFinalUniversidad.CapaDatos.Repositories;
+using ProyectoFinalUniversidad.CapaNegocio.Helpers;
+using ProyectoFinalUniversidad.CapaDatos.Repositories.Interfaces;
 using ProyectoFinalUniversidad.CapaNegocio.Servicios;
 using ProyectoFinalUniversidad;
 using System;

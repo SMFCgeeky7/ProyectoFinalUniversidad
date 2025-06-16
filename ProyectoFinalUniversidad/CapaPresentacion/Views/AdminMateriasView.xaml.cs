@@ -1,4 +1,4 @@
-﻿using ProyectoFinalUniversidad.Controllers;
+﻿using ProyectoFinalUniversidad.CapaPresentacion.Controllers;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;

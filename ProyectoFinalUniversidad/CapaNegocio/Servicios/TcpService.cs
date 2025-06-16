@@ -90,7 +90,7 @@ namespace ProyectoFinalUniversidad.CapaNegocio.Servicios
             }
         }
 
-        private void SendData(string data)
+        public void SendData(string data)
         {
             if (_stream == null) return;
 

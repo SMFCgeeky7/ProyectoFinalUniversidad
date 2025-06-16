@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProyectoFinalUniversidad.Views"
+        xmlns:local="clr-namespace:ProyectoFinalUniversidad.CapaPresentacion.Views"
         mc:Ignorable="d"
         Title="Materias"
         Height="600"
@@ -27,7 +27,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Vista para Estudiantes y Docentes -->
-            <Expander Header="Materia 1" Margin="10,10,10,10" Background="White" Grid.ColumnSpan="2">
+            <Expander Header="Materia 1" Margin="10,10,10,447" Background="White" Grid.ColumnSpan="2">
                 <StackPanel Margin="10">
                     <TextBlock Text="Duración: 3 meses" Foreground="Black"/>
                     <TextBlock Text="Fecha del Examen: 01/01/2023" Foreground="Black"/>

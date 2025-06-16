@@ -1,7 +1,7 @@
-﻿using ProyectoFinalUniversidad.Controllers;
+﻿using ProyectoFinalUniversidad.CapaDatos;
+using ProyectoFinalUniversidad.CapaPresentacion.Controllers;
 using System.Text;
 using System.Windows;
-using ProyectoFinalUniversidad.CapaPresentacion.Controllers;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -23,7 +23,7 @@ namespace ProyectoFinalUniversidad.CapaPresentacion.Views
         public LoginView()
         {
             InitializeComponent();
-            _authService = new AuthService(new UnitOfWork(new UniversidadDbContext()));
+            _authService = new AuthService(new CapaDatos.Repositories.UnitOfWork(new UniversidadDbContext()));
         }
 
         private void BtnIngresar_Click(object sender, RoutedEventArgs e)
