@@ -17,6 +17,12 @@ using System.Windows.Input;
 
 namespace ProyectoFinalUniversidad.CapaPresentacion.Controllers
 {
+    public static class CurrentUser
+    {
+        public static string CI { get; set; }
+        public static string Cod_Estudiante { get; set; }
+    }
+
     public class EnrollmentController : INotifyPropertyChanged
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -96,31 +102,26 @@ namespace ProyectoFinalUniversidad.CapaPresentacion.Controllers
                 }
 
                 // Guardar en la base de datos
-                using (var transaction = _unitOfWork._context.Database.BeginTransaction())
+                try
                 {
-                    try
+                    foreach (var materia in MateriasDisponibles.Where(m => m.EsSeleccionada))
                     {
-                        foreach (var materia in MateriasDisponibles.Where(m => m.EsSeleccionada))
+                        var inscripcion = new Plan_Estudiante
                         {
-                            var inscripcion = new Plan_Estudiante
-                            {
-                                Cod_Estudiante = CurrentUser.Cod_Estudiante,
-                                Cod_PlanEstudio = materia.CodMateria,
-                                Grupo = materia.Grupo
-                            };
-                            _unitOfWork._context.Plan_Estudiante.Add(inscripcion);
-                        }
-                        _unitOfWork.Save();
-                        transaction.Commit();
-                        _notificationService.ShowSuccessMessage("Inscripción exitosa!");
-                        // Cerrar ventana
-                        this.CloseAction?.Invoke();
+                            Cod_Estudiante = CurrentUser.Cod_Estudiante,
+                            Cod_PlanEstudio = materia.CodMateria,
+                            Grupo = materia.Grupo
+                        };
+                        _unitOfWork.Plan_Estudiantes.Add(inscripcion);
                     }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        _notificationService.ShowErrorMessage($"Error: {ex.Message}");
-                    }
+                    _unitOfWork.Save();
+                    _notificationService.ShowSuccessMessage("Inscripción exitosa!");
+                    // Cerrar ventana
+                    this.CloseAction?.Invoke();
+                }
+                catch (Exception ex)
+                {
+                    _notificationService.ShowErrorMessage($"Error: {ex.Message}");
                 }
             }
             catch (Exception ex)

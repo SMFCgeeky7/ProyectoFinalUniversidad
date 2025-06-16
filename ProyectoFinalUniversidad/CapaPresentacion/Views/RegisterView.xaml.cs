@@ -10,12 +10,12 @@ namespace ProyectoFinalUniversidad.CapaPresentacion.Views
     /// </summary>
     public partial class RegisterView : Window
     {
-        private readonly UserService _userService;
+        private readonly AuthService _authService;
 
         public RegisterView()
         {
             InitializeComponent();
-            _userService = new UserService();
+            _authService = new AuthService(new ProyectoFinalUniversidad.CapaDatos.Repositories.UnitOfWork(new ProyectoFinalUniversidad.CapaDatos.UniversidadDbContext()));
             LoadCarreras();
         }
 
@@ -48,24 +48,29 @@ namespace ProyectoFinalUniversidad.CapaPresentacion.Views
                 return;
             }
 
-            var user = new
-            {
-                Ci = txtCi.Text,
-                Password = txtPassword.Password,
-                PrimerApellido = txtPrimerApellido.Text,
-                SegundoApellido = txtSegundoApellido.Text,
-                Nombre = txtNombre.Text,
-                Genero = ((ComboBoxItem)cmbGenero.SelectedItem).Content.ToString(),
-                Departamento = ((ComboBoxItem)cmbDepartamento.SelectedItem).Content.ToString(),
-                UnidadAcademica = ((ComboBoxItem)cmbUnidadAcademica.SelectedItem).Content.ToString(),
-                Carrera = cmbCarrera.SelectedItem != null ? ((ComboBoxItem)cmbCarrera.SelectedItem).Content.ToString() : null
-            };
+            var ci = txtCi.Text;
+            var password = txtPassword.Password;
+            var primerApellido = txtPrimerApellido.Text;
+            var segundoApellido = txtSegundoApellido.Text;
+            var nombre = txtNombre.Text;
+            var genero = ((ComboBoxItem)cmbGenero.SelectedItem).Content.ToString();
+            var departamento = ((ComboBoxItem)cmbDepartamento.SelectedItem).Content.ToString();
+            var unidadAcademica = ((ComboBoxItem)cmbUnidadAcademica.SelectedItem).Content.ToString();
+            var carrera = cmbCarrera.SelectedItem != null ? ((ComboBoxItem)cmbCarrera.SelectedItem).Content.ToString() : null;
+            var role = departamento; // O ajusta según tu lógica de roles
 
             try
             {
-                _userService.RegisterUser(user);
-                MessageBox.Show("Usuario registrado exitosamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                bool registrado = _authService.Register(ci, password, primerApellido, segundoApellido, nombre, genero, departamento, unidadAcademica, carrera, role);
+                if (registrado)
+                {
+                    MessageBox.Show("Usuario registrado exitosamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo registrar el usuario. Verifique los datos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             catch (Exception ex)
             {

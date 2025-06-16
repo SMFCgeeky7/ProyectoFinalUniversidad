@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ProyectoFinalUniversidad.CapaNegocio.Interfaces;
 
 namespace ProyectoFinalUniversidad.CapaNegocio.Servicios
 {
-    public class NotificationService : IObserver
+    public class NotificationService : IMessageObserver
     {
         private readonly TcpService _tcpService;
 
