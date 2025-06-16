@@ -24,9 +24,8 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Implementations
             _context.Docente.Add(entity);
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             var docente = _context.Docente.Find(id);
             if (docente != null)
             {
@@ -39,9 +38,8 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Implementations
             return _context.Docente.ToList();
         }
 
-        public Docente GetById(string id)
+        public Docente GetById(int id)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             return _context.Docente.Find(id);
         }
 

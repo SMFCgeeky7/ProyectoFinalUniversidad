@@ -10,8 +10,8 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Interfaces
     {
         void Add(T entity);
         void Update(T entity);
-        T? GetById(string id);
+        T? GetById(int id);
         IEnumerable<T> GetAll();
-        void Delete(string id);
+        void Delete(int id);
     }
 }

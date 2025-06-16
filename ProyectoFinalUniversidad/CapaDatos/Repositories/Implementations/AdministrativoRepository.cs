@@ -22,9 +22,8 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Implementations
             _context.Administrativo.Add(entity);
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             var administrativo = _context.Administrativo.Find(id);
             if (administrativo != null)
             {
@@ -37,9 +36,8 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Implementations
             return _context.Administrativo.ToList();
         }
 
-        public Administrativo GetById(string id)
+        public Administrativo GetById(int id)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             return _context.Administrativo.Find(id);
         }
 

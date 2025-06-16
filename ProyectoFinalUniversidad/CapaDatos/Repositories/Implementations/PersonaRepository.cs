@@ -27,9 +27,8 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Implementations
             return _dbContext.Persona.ToList();
         }
 
-        public Persona GetById(string ci)
+        public Persona GetById(int ci)
         {
-            if (string.IsNullOrEmpty(ci)) throw new ArgumentNullException(nameof(ci));
             return _dbContext.Persona.Find(ci);
         }
 
@@ -39,9 +38,8 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Implementations
             _dbContext.Entry(persona).State = EntityState.Modified;
         }
 
-        public void Delete(string ci)
+        public void Delete(int ci)
         {
-            if (string.IsNullOrEmpty(ci)) throw new ArgumentNullException(nameof(ci));
             var persona = _dbContext.Persona.Find(ci);
             if (persona != null)
             {

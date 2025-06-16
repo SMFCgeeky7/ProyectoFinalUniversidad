@@ -67,7 +67,7 @@ namespace ProyectoFinalUniversidad.CapaPresentacion.Controllers
         private void LoadMateriasDisponibles()
         {
             // Obtener carrera del estudiante
-            var carreraEstudiante = _unitOfWork.Personas.GetById(CurrentUser.CI).Carrera;
+            var carreraEstudiante = _unitOfWork.Personas.GetById(int.Parse(CurrentUser.CI)).Carrera;
 
             // Cargar materias de la carrera del estudiante
             var materias = _unitOfWork.Materias.GetAll()

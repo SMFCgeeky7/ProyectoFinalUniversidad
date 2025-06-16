@@ -31,10 +31,9 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Implementations
             _context.Entry(usuario).State = EntityState.Modified;
         }
 
-        public UsuarioLogin? GetById(string username)
+        public UsuarioLogin? GetById(int id)
         {
-            if (string.IsNullOrEmpty(username)) throw new ArgumentNullException(nameof(username));
-            return _context.UsuarioLogin.Find(username);
+            return _context.UsuarioLogin.Find(id);
         }
 
         public IEnumerable<UsuarioLogin> GetAll()
@@ -42,10 +41,9 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Implementations
             return _context.UsuarioLogin.ToList();
         }
 
-        public void Delete(string username)
+        public void Delete(int id)
         {
-            if (string.IsNullOrEmpty(username)) throw new ArgumentNullException(nameof(username));
-            var usuario = _context.UsuarioLogin.Find(username);
+            var usuario = _context.UsuarioLogin.Find(id);
             if (usuario != null)
             {
                 _context.UsuarioLogin.Remove(usuario);
@@ -53,6 +51,12 @@ namespace ProyectoFinalUniversidad.CapaDatos.Repositories.Implementations
         }
 
         public UsuarioLogin? FindByUsername(string username)
+        {
+            if (string.IsNullOrEmpty(username)) throw new ArgumentNullException(nameof(username));
+            return _context.UsuarioLogin.FirstOrDefault(u => u.Username == username);
+        }
+
+        public UsuarioLogin? GetById(string username)
         {
             if (string.IsNullOrEmpty(username)) throw new ArgumentNullException(nameof(username));
             return _context.UsuarioLogin.FirstOrDefault(u => u.Username == username);
