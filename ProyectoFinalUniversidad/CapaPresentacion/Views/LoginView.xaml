@@ -1,0 +1,71 @@
+﻿<Window x:Class="ProyectoFinalUniversidad.CapaPresentacion.Views.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProyectoFinalUniversidad.Views"
+        mc:Ignorable="d"
+        Title="Inscripción de Materias" 
+        Height="450" 
+        Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Tabla de materias -->
+        <DataGrid x:Name="dgMaterias" 
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding MateriasDisponibles}"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  Margin="0,0,0,10"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="All">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Materia" 
+                                  Binding="{Binding Nombre}"
+                                  Width="*"/>
+                <DataGridTextColumn Header="Créditos" 
+                                  Binding="{Binding Creditos}"
+                                  Width="Auto"/>
+                <DataGridTemplateColumn Header="Grupo" 
+                                      Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox x:Name="cbGrupo" 
+                                    ItemsSource="{Binding GrupoOptions}" 
+                                    SelectedItem="{Binding Grupo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectionChanged="cbGrupo_SelectionChanged"
+                                    Width="100"
+                                    Margin="2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridCheckBoxColumn Header="Seleccionar" 
+                                      Binding="{Binding EsSeleccionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Panel inferior con botón y contador -->
+        <StackPanel Grid.Row="1" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,10,0,0">
+            <TextBlock Text="{Binding MateriasSeleccionadasCount, StringFormat='Materias seleccionadas: {0}/7'}" 
+                       VerticalAlignment="Center"
+                       Margin="0,0,15,0"/>
+            <Button Content="Aceptar" 
+                    Command="{Binding AceptarCommand}" 
+                    IsEnabled="{Binding MateriasSeleccionadasValidas}"
+                    Padding="15,5"
+                    MinWidth="80"/>
+        </StackPanel>
+    </Grid>
+</Window>
